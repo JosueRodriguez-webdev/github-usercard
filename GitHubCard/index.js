@@ -42,13 +42,58 @@ const followersArray = [];
 console.log(followersArray);
 
 axios
-  .get("https://api.github.com/users/myhousegotroaches/followers")
+  .get("https://api.github.com/users/carlsachs")
   .then((response) => {
     console.log(response);
-    response.data.forEach((item) => {
-      const runningFollowersData = splitUsersFunc(item);
-      indexCards.appendChild(runningFollowersData);
-    });
+    const runDataInComponent = splitUsersFunc(response.data);
+    indexCards.appendChild(runDataInComponent);
+  })
+  .catch((error) => {
+    console.log(error);
+  });
+
+axios
+  .get("https://api.github.com/users/ErikRodriguez-webdev")
+  .then((response) => {
+    console.log(response);
+    const runDataInComponent = splitUsersFunc(response.data);
+    indexCards.appendChild(runDataInComponent);
+  })
+  .catch((error) => {
+    console.log(error);
+  });
+
+axios
+  .get("https://api.github.com/users/ranccm")
+  .then((response) => {
+    console.log(response);
+    const runDataInComponent = splitUsersFunc(response.data);
+    indexCards.appendChild(runDataInComponent);
+  })
+  .catch((error) => {
+    console.log(error);
+  });
+
+axios
+  .get("https://api.github.com/users/seanaleid")
+  .then((response) => {
+    console.log(response);
+    const runDataInComponent = splitUsersFunc(response.data);
+    indexCards.appendChild(runDataInComponent);
+  })
+  .catch((error) => {
+    console.log(error);
+  });
+
+axios
+  .get("https://api.github.com/users/Reikiryo")
+  .then((response) => {
+    console.log(response);
+    const runDataInComponent = splitUsersFunc(response.data);
+    indexCards.appendChild(runDataInComponent);
+  })
+  .catch((error) => {
+    console.log(error);
   });
 
 /* Step 3: Create a function that accepts a single object as its only argument,
