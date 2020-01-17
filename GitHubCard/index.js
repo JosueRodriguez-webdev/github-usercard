@@ -7,6 +7,8 @@ axios
   .get("https://api.github.com/users/myhousegotroaches")
   .then((response) => {
     console.log(response);
+    const runDataInComponent = splitUsersFunc(response.data);
+    indexCards.appendChild(runDataInComponent);
   })
   .catch((error) => {
     console.log(error);
@@ -23,6 +25,8 @@ axios
            create a new component and add it to the DOM as a child of .cards
 */
 
+const indexCards = document.querySelector(".cards");
+
 /* Step 5: Now that you have your own card getting added to the DOM, either 
           follow this link in your browser https://api.github.com/users/<Your github name>/followers 
           , manually find some other users' github handles, or use the list found 
@@ -34,6 +38,18 @@ axios
 */
 
 const followersArray = [];
+
+console.log(followersArray);
+
+axios
+  .get("https://api.github.com/users/myhousegotroaches/followers")
+  .then((response) => {
+    console.log(response);
+    response.data.forEach((item) => {
+      const runningFollowersData = splitUsersFunc(item);
+      indexCards.appendChild(runningFollowersData);
+    });
+  });
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
@@ -54,7 +70,7 @@ const followersArray = [];
 </div>
 
 */
-function spitUsersFunc(object) {
+function splitUsersFunc(obj) {
   const divCard = document.createElement("div");
   const imgURL = document.createElement("img");
   const divCardInfo = document.createElement("div");
@@ -68,13 +84,32 @@ function spitUsersFunc(object) {
   const pBio = document.createElement("p");
 
   divCard.classList.add("card");
-  imgURL.src = obj.data.avatar_url;
+  imgURL.src = obj.avatar_url;
   divCardInfo.classList.add("card-info");
   h3Name.classList.add("name");
-  h3Name.textContent = obj.data.name;
+  h3Name.textContent = obj.name;
   pUsername.classList.add("username");
-  pUsername.textContent = obj.data.login;
-  pLocation.textContent = obj.data.location;
+  pUsername.textContent = obj.login;
+  pLocation.textContent = obj.location;
+  pProfile.textContent = "Profile: ";
+  aUserURL.href = obj.url;
+  aUserURL.textContent = obj.url;
+  pFollowers.textContent = "Followers: " + obj.followers;
+  pFollowing.textContent = "Following: " + obj.following;
+  pBio.textContent = "Bio:" + obj.bio;
+
+  divCard.appendChild(imgURL);
+  divCard.appendChild(divCardInfo);
+  divCardInfo.appendChild(h3Name);
+  divCardInfo.appendChild(pUsername);
+  divCardInfo.appendChild(pLocation);
+  divCardInfo.appendChild(pProfile);
+  divCardInfo.appendChild(pFollowers);
+  divCardInfo.appendChild(pFollowing);
+  divCardInfo.appendChild(pBio);
+  pProfile.appendChild(aUserURL);
+
+  return divCard;
 }
 
 /* List of LS Instructors Github username's: 
